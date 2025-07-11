@@ -1,1 +1,1 @@
-This is just to create the actual main folder so we can see it.
+This Remote Dashboard is created and developed by Adeleine Melendrez, Cecilia Merion, Micaela Predestin, and Megan Ruiz for the System Administration using UNIX (COP3604) course at Florida Polytechnic University. This project aims to create a program that monitors a Google Cloud Linux-based server and displays its performance to the user on a remote dashboard. 
