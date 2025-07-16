@@ -1,6 +1,6 @@
 body {
     background-color: white;
-    color: white;
+    color: lightslategrey;
     font-family: "Rubik", sans-serif;
 }
 
@@ -17,6 +17,10 @@ body {
     margin-bottom: 0px;
 }
 
+.right-align {
+    text-align: right;
+}
+
 .box-header {
     font-size: 1.5rem;
     margin-top: 0px;
@@ -29,20 +33,38 @@ body {
 }
 
 .expand-icon-button {
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     position: absolute;
-    top: 1rem;
+    top: 0.5rem;
     left: calc(100% - 3rem);
     background: none;
     border: none;
+}
+
+.ip-button {
+    background: none;
+    border: none;
+    color: lightslategrey;
+}
+
+/* .checkbox-label {
+    float:left;
+}
+.checkbox {
+    padding-right: 5px;
+    float: right;
+} */
+
+.options-slider {
+    width: 90%;
 }
 
 .expand-icon-button:hover>*:first-child {
     background: rgba(67, 67, 67, 0.15);
 }
 
-img {
+.bg-img {
     width: 100%;
     overflow: hidden;
     position: absolute;
@@ -97,8 +119,8 @@ img {
 
 @supports (-webkit-box-shadow: none) or (box-shadow: none) {
   .panel {
-    -webkit-box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.75), 0 0 30px rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.75), 0 0 30px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.75), 0 0 30px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.75), 0 0 30px rgba(0, 0, 0, 0.1);
   }
 }
 

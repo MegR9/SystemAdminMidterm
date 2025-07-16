@@ -9,8 +9,17 @@
     <script src="main.js"></script>
 </head>
 <body onload="initialize()">
-    <h2 class="subtitle">System Administration Using Unix Group 1</h2>
-    <h1 class="title">Cloud Performance Dashboard</h1>
+    <div class="right-sidebar" style="width: 87%;">
+    <div>
+        <h2 class="subtitle">System Administration Using Unix Group 1</h2>
+        <h1 class="title">Cloud Performance Dashboard</h1>
+    </div>
+    <div>
+        <h3 class="subtitle right-align">Now Monitoring:</h3>
+        <h3 class="title right-align">192.168.2.11</h3>
+        <!-- <button class="ip-button" id="ip-button" onclick="updateIP()"><h3 class="title right-align">192.168.2.11</h3></button> -->
+    </div>
+    </div>
     <div class="panel-block-container">
         <div class="placeholder"></div>
         <div class="panel-container">
@@ -23,6 +32,12 @@
                 <div class="subpanel-container">
                     <div class="panel">
                         <h2 class="box-header">Settings</h2>
+                        <input class="checkbox" type="checkbox" id="alertToggle1">
+                        <label class="checkbox-label" for="alertToggle1">Usage Alerts</label><br>
+                        <p class="slider-label">Alert at 100% Usage</p>
+                        <input class="options-slider" id="cpuUsageAlert" oninput="UpdateSlider(0)" value="100" type="range">
+                        <p>Graph Color</p>
+                        <input type="color">
                     </div>
                 </div>
             </div>
@@ -42,29 +57,69 @@
                 </div>
             </div>
         </div>
+        <div class="placeholder"></div>
         <div class="panel-container">
-            <div class="panel">
-                <canvas class="chart" id="diskUsage"></canvas>
+            <div class="sidebar hidden-sidebar">
+                <div class="panel">
+                    <h2 class="box-header">Disk Usage</h2>
+                    <button onclick="panelButton(2)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
+                    <div class="chart-holder"><canvas width="100" height="100" id="diskUsage"></canvas></div>
+                </div>
+                <div class="subpanel-container">
+                    <div class="panel">
+                        <h2 class="box-header">Settings</h2>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="placeholder"></div>
         <div class="panel-container">
-            <div class="panel">
-                <canvas class="chart" id="networkUsage"></canvas>
+            <div class="sidebar hidden-sidebar">
+                <div class="panel">
+                    <h2 class="box-header">Network Usage</h2>
+                    <button onclick="panelButton(3)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
+                    <div class="chart-holder"><canvas width="100" height="100" id="netUsage"></canvas></div>
+                </div>
+                <div class="subpanel-container">
+                    <div class="panel">
+                        <h2 class="box-header">Settings</h2>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="placeholder"></div>
         <div class="panel-container">
-            <div class="panel">
-                <canvas class="chart" id="placeholderUsage"></canvas>
+            <div class="sidebar hidden-sidebar">
+                <div class="panel">
+                    <h2 class="box-header">RAM Usage</h2>
+                    <button onclick="panelButton(4)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
+                    <div class="chart-holder"><canvas width="100" height="100" id="placeholderUsage"></canvas></div>
+                </div>
+                <div class="subpanel-container">
+                    <div class="panel">
+                        <h2 class="box-header">Settings</h2>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="placeholder"></div>
         <div class="panel-container">
-            <div class="panel">
-                <canvas class="chart" id="placeholderUsage2"></canvas>
+            <div class="sidebar hidden-sidebar">
+                <div class="panel">
+                    <h2 class="box-header">RAM Usage</h2>
+                    <button onclick="panelButton(5)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
+                    <div class="chart-holder"><canvas width="100" height="100" id="placeholderUsage2"></canvas></div>
+                </div>
+                <div class="subpanel-container">
+                    <div class="panel">
+                        <h2 class="box-header">Settings</h2>
+                    </div>
+                </div>
             </div>
         </div>
     <div>
     <!-- <div class="panel"></div> -->
-    <img src="Media/background.jpg">
+    <img class="bg-img" src="Media/background2.jpg">
     <script type="module" src="charts.js"></script>
 </body>
 </html>
