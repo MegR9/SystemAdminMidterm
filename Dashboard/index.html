@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,119 +8,176 @@
     <link href="style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
     <script src="main.js"></script>
+    <script src="clock.js"></script>
 </head>
-<body onload="initialize()">
-    <div class="right-sidebar" style="width: 87%;">
-    <div>
-        <h2 class="subtitle">System Administration Using Unix Group 1</h2>
-        <h1 class="title">Cloud Performance Dashboard</h1>
+
+<body onload="initialize(), startTime()">
+    <div class="right-sidebar" style="width: 100%;">
+        <div>
+            <h2 class="subtitle">System Administration Using Unix Group 1</h2>
+            <h1 class="title">Cloud Performance Dashboard</h1>
+        </div>
+        <div>
+            <h3 id ="ip-header" style="visibility: hidden;" class="subtitle right-align">Now Monitoring:</h3>
+            <h3 id="ip-text" style="visibility: hidden;" class="title right-align">Nothing</h3>
+            <!-- <button class="ip-button" id="ip-button" onclick="updateIP()"><h3 class="title right-align">192.168.2.11</h3></button> -->
+        </div>
     </div>
-    <div>
-        <h3 class="subtitle right-align">Now Monitoring:</h3>
-        <h3 class="title right-align">192.168.2.11</h3>
-        <!-- <button class="ip-button" id="ip-button" onclick="updateIP()"><h3 class="title right-align">192.168.2.11</h3></button> -->
+    <div class="right-sidebar">
+        <div>
+            <div class="panel-block-container">
+                <div class="placeholder"></div>
+                <div class="panel-container">
+                    <div class="sidebar hidden-sidebar">
+                        <div class="panel">
+                            <h2 class="box-header">CPU Usage</h2>
+                            <button onclick="panelButton(0)" class="expand-icon-button"><img class="expand-icon"
+                                    src="Media/Icons/open.svg"></button>
+                            <div class="chart-holder"><canvas width="100" height="100" id="cpuUsage"></canvas></div>
+                        </div>
+                        <div class="subpanel-container">
+                            <div class="panel">
+                                <h2 class="box-header">Settings</h2>
+                                <input class="checkbox" type="checkbox" id="alertToggle1">
+                                <label class="checkbox-label" for="alertToggle1">Usage Alert</label><br>
+                                <p class="slider-label">Alert at 100% Usage</p>
+                                <input class="options-slider" id="cpuUsageAlert" oninput="updateSlider(0)" value="100"
+                                    type="range">
+                                <!-- <p>Graph Color</p>
+                                <input type="color"> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="placeholder"></div>
+                <div class="panel-container">
+                    <div class="sidebar hidden-sidebar">
+                        <div class="panel">
+                            <h2 class="box-header">RAM Usage</h2>
+                            <button onclick="panelButton(1)" class="expand-icon-button"><img class="expand-icon"
+                                    src="Media/Icons/open.svg"></button>
+                            <div class="chart-holder"><canvas width="100" height="100" id="ramUsage"></canvas></div>
+                        </div>
+                        <div class="subpanel-container">
+                            <div class="panel">
+                                <h2 class="box-header">Settings</h2>
+                                <input class="checkbox" type="checkbox" id="alertToggle2">
+                                <label class="checkbox-label" for="alertToggle2">Usage Alert</label><br>
+                                <p class="slider-label">Alert at 100% Usage</p>
+                                <input class="options-slider" id="ramUsageAlert" oninput="updateSlider(1)" value="100"
+                                    type="range">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="placeholder"></div>
+                <div class="panel-container">
+                    <div class="sidebar hidden-sidebar">
+                        <div class="panel">
+                            <h2 class="box-header">Disk Usage</h2>
+                            <button onclick="panelButton(2)" class="expand-icon-button"><img class="expand-icon"
+                                    src="Media/Icons/open.svg"></button>
+                            <div class="chart-holder"><canvas width="100" height="100" id="diskUsage"></canvas></div>
+                        </div>
+                        <div class="subpanel-container">
+                            <div class="panel">
+                                <h2 class="box-header">Settings</h2>
+                                <input class="checkbox" type="checkbox" id="alertToggle1">
+                                <label class="checkbox-label" for="alertToggle1">Usage Alert</label><br>
+                                <p class="slider-label">Alert at 100% Usage</p>
+                                <input class="options-slider" id="diskUsageAlert" oninput="updateSlider(2)" value="100"
+                                    type="range">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="placeholder"></div>
+                <div class="panel-container">
+                    <div class="sidebar hidden-sidebar">
+                        <div class="panel">
+                            <h2 class="box-header">Network Usage</h2>
+                            <button onclick="panelButton(3)" class="expand-icon-button"><img class="expand-icon"
+                                    src="Media/Icons/open.svg"></button>
+                            <div class="chart-holder"><canvas width="100" height="100" id="netUsage"></canvas></div>
+                        </div>
+                        <div class="subpanel-container">
+                            <div class="panel">
+                                <h2 class="box-header">Settings</h2>
+                                <input class="checkbox" type="checkbox" id="alertToggle3">
+                                <label class="checkbox-label" for="alertToggle3">Usage Alert</label><br>
+                                <p class="slider-label">Alert at 100% Usage</p>
+                                <input class="options-slider" id="netUsageAlert" oninput="updateSlider(3)" value="100"
+                                    type="range">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="placeholder"></div>
+                <div class="panel-container">
+                    <div class="sidebar hidden-sidebar">
+                        <div class="panel">
+                            <h2 class="box-header">Load Average</h2>
+                            <button onclick="panelButton(4)" class="expand-icon-button"><img class="expand-icon"
+                                    src="Media/Icons/open.svg"></button>
+                            <div class="chart-holder"><canvas width="100" height="100" id="avgUsage"></canvas>
+                            </div>
+                        </div>
+                        <div class="subpanel-container">
+                            <div class="panel">
+                                <h2 class="box-header">Settings</h2>
+                                <input class="checkbox" type="checkbox" id="alertToggle4">
+                                <label class="checkbox-label" for="alertToggle4">Usage Alert</label><br>
+                                <p class="slider-label">Alert at 100% Usage</p>
+                                <input class="options-slider" id="averageUsageAlert" oninput="updateSlider(4)" value="100"
+                                    type="range">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="placeholder"></div>
+                <div class="panel-container">
+                    <div class="sidebar hidden-sidebar">
+                        <div class="panel">
+                            <h2 class="box-header">RAM Usage</h2>
+                            <button onclick="panelButton(5)" class="expand-icon-button"><img class="expand-icon"
+                                    src="Media/Icons/open.svg"></button>
+                            <div class="chart-holder"><canvas width="100" height="100" id="placeholderUsage2"></canvas>
+                            </div>
+                        </div>
+                        <div class="subpanel-container">
+                            <div class="panel">
+                                <h2 class="box-header">Settings</h2>
+                                <input class="checkbox" type="checkbox" id="alertToggle5">
+                                <label class="checkbox-label" for="alertToggle5">Usage Alert</label><br>
+                                <p class="slider-label">Alert at 100% Usage</p>
+                                <input class="options-slider" id="placeholderUsageAlert" oninput="updateSlider(5)" value="100"
+                                    type="range">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-sidepanel-container">
+            <div class="panel">
+                <h2 class="box-header">Server Information</h2>
+                <h3>Hostname:</h3>
+                <h3>Uptime:</h3>
+            </div>
+            <div class="panel">
+                <h2 class="box-header" id="date"></h2>
+                <h1 class="time" id="time"></h1>
+            </div>
+            <div class="panel">
+                <h2 class="box-header">Settings</h2>
+                <p>Server IP Address</p>
+                <input type="text" id="ip-input" onchange="updateIP(value)">
+            </div>
+        </div>
     </div>
-    </div>
-    <div class="panel-block-container">
-        <div class="placeholder"></div>
-        <div class="panel-container">
-            <div class="sidebar hidden-sidebar">
-                <div class="panel">
-                    <h2 class="box-header">CPU Usage</h2>
-                    <button onclick="panelButton(0)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
-                    <div class="chart-holder"><canvas width="100" height="100" id="cpuUsage"></canvas></div>
-                </div>
-                <div class="subpanel-container">
-                    <div class="panel">
-                        <h2 class="box-header">Settings</h2>
-                        <input class="checkbox" type="checkbox" id="alertToggle1">
-                        <label class="checkbox-label" for="alertToggle1">Usage Alerts</label><br>
-                        <p class="slider-label">Alert at 100% Usage</p>
-                        <input class="options-slider" id="cpuUsageAlert" oninput="UpdateSlider(0)" value="100" type="range">
-                        <p>Graph Color</p>
-                        <input type="color">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="placeholder"></div>
-        <div class="panel-container">
-            <div class="sidebar hidden-sidebar">
-                <div class="panel">
-                    <h2 class="box-header">RAM Usage</h2>
-                    <button onclick="panelButton(1)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
-                    <div class="chart-holder"><canvas width="100" height="100" id="ramUsage"></canvas></div>
-                </div>
-                <div class="subpanel-container">
-                    <div class="panel">
-                        <h2 class="box-header">Settings</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="placeholder"></div>
-        <div class="panel-container">
-            <div class="sidebar hidden-sidebar">
-                <div class="panel">
-                    <h2 class="box-header">Disk Usage</h2>
-                    <button onclick="panelButton(2)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
-                    <div class="chart-holder"><canvas width="100" height="100" id="diskUsage"></canvas></div>
-                </div>
-                <div class="subpanel-container">
-                    <div class="panel">
-                        <h2 class="box-header">Settings</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="placeholder"></div>
-        <div class="panel-container">
-            <div class="sidebar hidden-sidebar">
-                <div class="panel">
-                    <h2 class="box-header">Network Usage</h2>
-                    <button onclick="panelButton(3)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
-                    <div class="chart-holder"><canvas width="100" height="100" id="netUsage"></canvas></div>
-                </div>
-                <div class="subpanel-container">
-                    <div class="panel">
-                        <h2 class="box-header">Settings</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="placeholder"></div>
-        <div class="panel-container">
-            <div class="sidebar hidden-sidebar">
-                <div class="panel">
-                    <h2 class="box-header">RAM Usage</h2>
-                    <button onclick="panelButton(4)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
-                    <div class="chart-holder"><canvas width="100" height="100" id="placeholderUsage"></canvas></div>
-                </div>
-                <div class="subpanel-container">
-                    <div class="panel">
-                        <h2 class="box-header">Settings</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="placeholder"></div>
-        <div class="panel-container">
-            <div class="sidebar hidden-sidebar">
-                <div class="panel">
-                    <h2 class="box-header">RAM Usage</h2>
-                    <button onclick="panelButton(5)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
-                    <div class="chart-holder"><canvas width="100" height="100" id="placeholderUsage2"></canvas></div>
-                </div>
-                <div class="subpanel-container">
-                    <div class="panel">
-                        <h2 class="box-header">Settings</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <div>
     <!-- <div class="panel"></div> -->
     <img class="bg-img" src="Media/background2.jpg">
     <script type="module" src="charts.js"></script>
 </body>
+
 </html>

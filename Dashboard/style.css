@@ -5,16 +5,22 @@ body {
 }
 
 .title {
-    font-size: 3rem;
+    font-size: 3.5vw;
     margin-left: 10px;
     margin-top: 0;
     margin-bottom: 0px;
+    text-wrap: nowrap;
 }
 
 .subtitle {
-    font-size: 1.5rem;
+    font-size: 2vw;
     margin-left: 12px;
     margin-bottom: 0px;
+}
+
+.time {
+    font-size: 3.5vw;
+    margin-top: 0;
 }
 
 .right-align {
@@ -84,7 +90,7 @@ body {
 .panel-block-container {
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
+    width: 100%;
 }
 
 .panel-container {
@@ -96,6 +102,21 @@ body {
 .subpanel-container {
     height: 100%;
     margin-bottom: 30px;
+}
+
+.main-sidepanel-container>*:nth-child(1) {
+    height: calc(100% / 6 - 30px);
+    margin-bottom: 10px;
+}
+
+.main-sidepanel-container>*:nth-child(2) {
+    height: calc(100% / 3 - 30px);
+    margin-bottom: 10px;
+}
+
+.main-sidepanel-container>*:nth-child(3) {
+    height: calc(100% / 2 - 30px);
+    margin-bottom: 10px;
 }
 
 .panel {
