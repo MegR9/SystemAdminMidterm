@@ -1,13 +1,17 @@
 //this is for the backend of the application
 //for the midterm project 
 import express from 'express';
+import * as os from 'os';
+import * as exec from 'child_process';
+import * as fs from 'fs';
+//import 'module';
 const app = express();
-const os = require('os');
+//const os = require('os');
 
 //for disk
-const { exec } = require('child_process');
+//const { exec } = require('child_process');
 //for network
-const fs = require('fs');
+//const fs = require('fs');
 
 
 // store CPU
