@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "For midterm project ",
   "main": "server.js",
+  "type":"module",
   "scripts": {
     "test": "echo The server is up?",
     "start": "node server.js"
