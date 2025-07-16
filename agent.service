@@ -1,6 +1,6 @@
 # /etc/systemd/system/agent.service
 [Unit]
-Description=Custom Agent for Performance Monitoring
+Description=Agent Service Montoring
 After=network.target
 
 [Service]
