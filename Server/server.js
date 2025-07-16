@@ -4,6 +4,7 @@ import express from 'express';
 import * as os from 'os';
 import * as exec from 'child_process';
 import * as fs from 'fs';
+import * as cors from 'cors';
 //import 'module';
 const app = express();
 //const os = require('os');
@@ -110,14 +111,14 @@ function getLoadAverage() {
 }
 
 //send data in json
-app.get('/stats', async (req, res) => {
-    const cpu = await getCPUUsage();
+app.get('/stats', async, cors(corsOptions), (req, res) => {
+    const cpu = getCPUUsage();
     const memory = getMemoryInfo();
     const load = getLoadAverage();
-    const [diskSpace, diskIO, network] = await Promise.all([
+    const [diskSpace, diskIO, network] = Promise.all([
         getDiskSpace(),
         getDiskIO(),
-        getNetworkUsage()
+        getNetworkStats()
     ]);
 
     res.json({
