@@ -1,0 +1,13 @@
+# /etc/systemd/system/agent.service
+[Unit]
+Description=Custom Agent for Performance Monitoring
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/agent.py
+Restart=always
+RestartSec=5
+User=root
+
+[Install]
+WantedBy=multi-user.target
