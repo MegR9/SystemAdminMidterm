@@ -5,9 +5,17 @@ import * as os from 'os';
 import * as exec from 'child_process';
 import * as fs from 'fs';
 import * as cors from 'cors';
+//const cors = require('cors');
 //import 'module';
 const app = express();
 //const os = require('os');
+//app.use(cors());
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 //for disk
 //const { exec } = require('child_process');
@@ -111,7 +119,7 @@ function getLoadAverage() {
 }
 
 //send data in json
-app.get('/stats', async, cors(corsOptions), (req, res) => {
+app.get('/stats', (req, res) => {
     const cpu = getCPUUsage();
     const memory = getMemoryInfo();
     const load = getLoadAverage();
