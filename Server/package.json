@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "For midterm project ",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo The server is up?",
     "start": "node server.js"
   },
   "author": "Megan Ruiz",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
 }

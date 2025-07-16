@@ -1,13 +1,26 @@
 //this is for the backend of the application
 //for the midterm project 
 import express from 'express';
+import * as os from 'os';
+import * as exec from 'child_process';
+import * as fs from 'fs';
+import * as cors from 'cors';
+//const cors = require('cors');
+//import 'module';
 const app = express();
-const os = require('os');
+//const os = require('os');
+//app.use(cors());
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 //for disk
-const { exec } = require('child_process');
+//const { exec } = require('child_process');
 //for network
-const fs = require('fs');
+//const fs = require('fs');
 
 
 // store CPU
@@ -106,14 +119,14 @@ function getLoadAverage() {
 }
 
 //send data in json
-app.get('/stats', async (req, res) => {
-    const cpu = await getCPUUsage();
+app.get('/stats', (req, res) => {
+    const cpu = getCPUUsage();
     const memory = getMemoryInfo();
     const load = getLoadAverage();
-    const [diskSpace, diskIO, network] = await Promise.all([
+    const [diskSpace, diskIO, network] = Promise.all([
         getDiskSpace(),
         getDiskIO(),
-        getNetworkUsage()
+        getNetworkStats()
     ]);
 
     res.json({
