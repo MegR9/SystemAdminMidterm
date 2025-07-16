@@ -1,0 +1,15 @@
+#!/bin/bash
+
+[Unit]
+Description=Auto Stress Test on Boot
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/StressTest.sh
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
