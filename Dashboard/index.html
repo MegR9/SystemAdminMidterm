@@ -5,45 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
     <script src="main.js"></script>
 </head>
 <body onload="initialize()">
     <h2 class="subtitle">System Administration Using Unix Group 1</h2>
     <h1 class="title">Cloud Performance Dashboard</h1>
     <div class="panel-block-container">
+        <div class="placeholder"></div>
         <div class="panel-container">
-            <div class="panel">
-                <h2 class="box-header">CPU Usage</h2>
-                <button onclick="expandPanel(0)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
+            <div class="sidebar hidden-sidebar">
+                <div class="panel">
+                    <h2 class="box-header">CPU Usage</h2>
+                    <button onclick="panelButton(0)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
+                    <div class="chart-holder"><canvas width="100" height="100" id="cpuUsage"></canvas></div>
+                </div>
+                <div class="subpanel-container">
+                    <div class="panel">
+                        <h2 class="box-header">Settings</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="placeholder"></div>
+        <div class="panel-container">
+            <div class="sidebar hidden-sidebar">
+                <div class="panel">
+                    <h2 class="box-header">RAM Usage</h2>
+                    <button onclick="panelButton(1)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
+                    <div class="chart-holder"><canvas width="100" height="100" id="ramUsage"></canvas></div>
+                </div>
+                <div class="subpanel-container">
+                    <div class="panel">
+                        <h2 class="box-header">Settings</h2>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="panel-container">
             <div class="panel">
-                <button onclick="expandPanel(1)" class="expand-icon-button"><img class="expand-icon" src="Media/Icons/open.svg"></button>
+                <canvas class="chart" id="diskUsage"></canvas>
             </div>
         </div>
         <div class="panel-container">
             <div class="panel">
-
+                <canvas class="chart" id="networkUsage"></canvas>
             </div>
         </div>
         <div class="panel-container">
             <div class="panel">
-
+                <canvas class="chart" id="placeholderUsage"></canvas>
             </div>
         </div>
         <div class="panel-container">
             <div class="panel">
-
-            </div>
-        </div>
-        <div class="panel-container">
-            <div class="panel">
-
+                <canvas class="chart" id="placeholderUsage2"></canvas>
             </div>
         </div>
     <div>
     <!-- <div class="panel"></div> -->
     <img src="Media/background.jpg">
+    <script type="module" src="charts.js"></script>
 </body>
 </html>
