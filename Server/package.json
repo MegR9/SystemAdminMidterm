@@ -1,0 +1,12 @@
+{
+  "name": "midterm",
+  "version": "1.0.0",
+  "description": "For midterm project ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo The server is up?",
+    "start": "node server.js"
+  },
+  "author": "Megan Ruiz",
+  "license": "ISC"
+}
