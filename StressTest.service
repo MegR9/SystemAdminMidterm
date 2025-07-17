@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# describes the program and what program it goes after
+[Unit]
+Description=Auto Stress Test on Boot
+After=network.target
+
+# Gives instructions on what to run and how to run it
+[Service]
+ExecStart=/usr/local/bin/StressTest.sh
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+# Describes what else the service wants
+[Install]
+WantedBy=multi-user.target
