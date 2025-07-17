@@ -28,7 +28,7 @@ body {
 }
 
 .box-header {
-    font-size: 1.5rem;
+    font-size: 2vw;
     margin-top: 0px;
     margin-bottom: 0px;
 }
@@ -54,16 +54,40 @@ body {
     color: lightslategrey;
 }
 
-/* .checkbox-label {
-    float:left;
+.settings-box-header {
+    font-size: 3vw;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
-.checkbox {
-    padding-right: 5px;
-    float: right;
-} */
 
+.setting-container {
+    padding-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.settings-label {
+    float:left;
+    font-size: 1.5rem;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+.settings-input {
+    float: right;
+}
+.slider-label {
+    margin-bottom: 5px;
+    width: 100%;
+}
 .options-slider {
-    width: 90%;
+    width: 100%;
+}
+.history-buttons {
+    margin-bottom: 5px;
+    width: 100%;
+}
+.history-buttons>* {
+    width: calc(100% / 3 - 5px);
 }
 
 .expand-icon-button:hover>*:first-child {

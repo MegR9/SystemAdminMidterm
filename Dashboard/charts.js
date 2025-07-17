@@ -1,19 +1,31 @@
 // Chart.defaults.backgroundColor = '#FFF';
-// Chart.defaults.borderColor = '#FFF';
+Chart.defaults.elements.line.borderColor = '#37A2EB';
+Chart.defaults.elements.point.backgroundColor = '#37A2EB';
 Chart.defaults.color = '#778899';
+Chart.defaults.plugins.colors =  false;
 
 (async function() {
 
+  const data = [
+    { year: 2010, count: 10 },
+    { year: 2011, count: 20 },
+    { year: 2012, count: 15 },
+    { year: 2013, count: 25 },
+    { year: 2014, count: 22 },
+    { year: 2015, count: 30 },
+    { year: 2016, count: 28 },
+  ];
   new Chart(
     document.getElementById('cpuUsage'),
     {
+      
       type: 'line',
       data: {
-        labels: time,//data.map(row => row.year),
+        labels: data.map(row => row.year),//time,
         datasets: [
           {
             label: 'CPU Usage',
-            data: cpuX//data.map(row => row.count)
+            data: data.map(row => row.count)//cpuUsage//data.map(row => row.count)
           }
         ]
       },
@@ -49,7 +61,7 @@ Chart.defaults.color = '#778899';
         datasets: [
           {
             label: 'RAM Usage',
-            data: cpuX
+            data: ramUsage
           }
         ]
       },
@@ -85,7 +97,43 @@ Chart.defaults.color = '#778899';
         datasets: [
           {
             label: 'Disk Usage',
-            data: cpuX
+            data: diskUsage
+          }
+        ]
+      },
+      options: {
+        maintainAspectRatio: false,
+        animation: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            enabled: false
+          }
+        },
+        scales: {
+            x: {
+              display:false
+           }
+        }
+      }
+    }
+  );
+})();
+
+(async function() {
+
+  new Chart(
+    document.getElementById('diskIOUsage'),
+    {
+      type: 'line',
+      data: {
+        labels: time,
+        datasets: [
+          {
+            label: 'Disk IO Usage',
+            data: IOUsage
           }
         ]
       },
@@ -121,7 +169,7 @@ Chart.defaults.color = '#778899';
         datasets: [
           {
             label: 'Net Usage',
-            data: cpuX
+            data: netUsage
           }
         ]
       },
@@ -157,7 +205,7 @@ Chart.defaults.color = '#778899';
         datasets: [
           {
             label: 'Average Usage',
-            data: cpuX
+            data: avgUsage
           }
         ]
       },

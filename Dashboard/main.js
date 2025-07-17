@@ -13,8 +13,12 @@ var lastCoords
 
 var gettingData = false
 
-var cpuX
+var cpuUsage, ramUsage, diskUsage, IOUsage, netUsage, avgUsage
+var stats = [cpuUsage, ramUsage, diskUsage, IOUsage, netUsage, avgUsage]
+var statNames = ["CPU", "RAM", "Disk Space", "Disk IO", "Network", "Average"]
 var time
+
+var cpuChart, ramChart, diskChart, IOChart, netChart, avgChart
 
 var IP = "0.0.0.0"
 var port = "3000"
@@ -31,14 +35,21 @@ function initialize() {
             }
         }
     }
+
+    cpuChart = Chart.getChart('cpuUsage')
+    ramChart = Chart.getChart('ramUsage')
+    diskChart = Chart.getChart('diskUsage')
+    IOChart = Chart.getChart('diskIOUsage')
+    netChart = Chart.getChart('netUsage')
+    avgChart = Chart.getChart('avgUsage')
 }
 
 function panelButton(panelNumber) {
-    if (panelNumber == openPanel) {
-        collapsePanel(panelNumber)
-    } else {
-        expandPanel(panelNumber)
-    }
+        if (panelNumber == openPanel) {
+            collapsePanel(panelNumber)
+        } else if (openPanel == -1) {
+            expandPanel(panelNumber)
+        }
 }
 
 function expandPanel(panelNumber) {
@@ -139,28 +150,33 @@ function updateSlider(sliderNumber) {
 }
 
 
-function usageAlert() {
-    setTimeout(function() {
-        //for (let i = 0; i < sliders.length; i++) {
-            if (cpuX > sliders[0].value && sliderCheckboxes[0].value == on)
-                alert("your CPU usage is high!")
-            if (ramX > sliders[1].value && sliderCheckboxes[1].value == on)
-                alert("your RAM usage is high!")
-            if (diskX > sliders[2].value && sliderCheckboxes[2].value == on)
-                alert("your Disk usage is high!")
-            if (netX > sliders[3].value && sliderCheckboxes[3].value == on)
-                alert("your Network usage is high!")
-            if (avgX > sliders[4].value && sliderCheckboxes[4].value == on)
-                alert("your Average usage is high!")
-            if (cpuX > sliders[5].value && sliderCheckboxes[5].value == on)
-                alert("your  usage is high!")
-        //}
+async function usageAlert() {
+    for (let i = 0; i < sliders.length; i++) {
+        if (stats[i] > sliders[i].value && sliderCheckboxes[i].value == on)
+            alert("Your " + statNames[i] + " usage is high!")
+    }
+    setTimeout(function () {
+        usageAlert()
     }, 1000)
 }
 
+function setHistory(chartName, history) {
+    chart = Chart.getChart(chartName)
+    while (chart.data.labels.length > history) {
+        removeData(chart)
+    }
+    chart.update()
+}
+
+function setColor(chartName, color) {
+    chart = Chart.getChart(chartName)
+    chart.options.elements.line.borderColor = color
+    chart.options.elements.point.backgroundColor = color
+    chart.update()
+}
 
 async function getData() {
-    const response = await fetch('population.json') //fetch('http://34.148.159.57/res.json')//fetch('http://' + IP + ":" + port +'/res.json');
+    const response = await fetch('population.json') //fetch('http://' + IP + ":" + port + '/res.json'); //fetch('population.json') //fetch('http://34.148.159.57/res.json')
     //response.preventDefault();
     console.log(response);
     const data = await response.json();
@@ -168,29 +184,25 @@ async function getData() {
     length = data.length;
     console.log(length);
 
-    time = data[length - 1].year
-    cpuX = data[length - 1].people //cpuUsagePercent
-    // ramX = data[length - 1].memory
-    // avgX = data[length - 1].loadAverage
-    // netX = data[length - 1].network
-    // diskX = data[length - 1].disk.space
-
-    var cpuChart = Chart.getChart('cpuUsage')
-    // var ramChart = Chart.getChart('ramUsage')
-    // var diskChart = Chart.getChart('diskUsage')
-    // var netChart = Chart.getChart('netUsage')
-    // var avgChart = Chart.getChart('avgUsage')
+    time = data[length - 1].time
+    cpuUsage = data[length - 1].people//cpuUsagePercent
+    // ramUsage = data[length - 1].memory
+    // diskUsage = data[length - 1].disk.space
+    // IOUsage = data[length - 1].disk.io
+    // netUsage = data[length - 1].network
+    // avgUsage = data[length - 1].loadAverage
 
     if (length > 5) {
         //removeData(cpuChart)
-        //removeData(cpuChart)
     }
 
-    addData(cpuChart, time, cpuX)
-    // addData(ramChart, time, ramX)
-    // addData(diskChart, time, avgX)
-    // addData(avgChart, time, netX)
-    // addData(netChart, time, diskX)
+    addData(cpuChart, time, cpuUsage)
+    addData(ramChart, time, ramUsage)
+    addData(diskChart, time, diskUsage)
+    addData(IOChart, time, IOUsage)
+    addData(netChart, time, netUsage)
+    addData(avgChart, time, avgUsage)
+
     if (gettingData) {
         setTimeout(getData, 2000)
     }
