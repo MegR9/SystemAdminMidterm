@@ -1,4 +1,4 @@
-const charts = document.getElementsByClassName("chart-holder")
+const chartContainers = document.getElementsByClassName("chart-holder")
 const sidebars = document.getElementsByClassName("sidebar")
 const panelList = document.getElementsByClassName("panel-container")
 const icons = document.getElementsByClassName("expand-icon")
@@ -16,9 +16,11 @@ var gettingData = false
 var cpuUsage, ramUsage, diskUsage, IOUsage, netUsage, avgUsage
 var stats = [cpuUsage, ramUsage, diskUsage, IOUsage, netUsage, avgUsage]
 var statNames = ["CPU", "RAM", "Disk Space", "Disk IO", "Network", "Average"]
+var timeScales = [30, 30, 30, 30, 30, 30]
 var time
 
 var cpuChart, ramChart, diskChart, IOChart, netChart, avgChart
+var charts = []
 
 var IP = "0.0.0.0"
 var port = "3000"
@@ -42,14 +44,15 @@ function initialize() {
     IOChart = Chart.getChart('diskIOUsage')
     netChart = Chart.getChart('netUsage')
     avgChart = Chart.getChart('avgUsage')
+    charts = [cpuChart, ramChart, diskChart, IOChart, netChart, avgChart]
 }
 
 function panelButton(panelNumber) {
-        if (panelNumber == openPanel) {
-            collapsePanel(panelNumber)
-        } else if (openPanel == -1) {
-            expandPanel(panelNumber)
-        }
+    if (panelNumber == openPanel) {
+        collapsePanel(panelNumber)
+    } else if (openPanel == -1) {
+        expandPanel(panelNumber)
+    }
 }
 
 function expandPanel(panelNumber) {
@@ -160,23 +163,35 @@ async function usageAlert() {
     }, 1000)
 }
 
-function setHistory(chartName, history) {
-    chart = Chart.getChart(chartName)
-    while (chart.data.labels.length > history) {
-        removeData(chart)
+function setTimeScale(chartNumber, scale) {
+    if (chartNumber != -1) {
+        timeScales[chartNumber] = scale
+        updateCharts()
+    } else {
+        for (let i = 0; i < charts.length; i++) {
+            timeScales[i] = scale
+            updateCharts()
+        }
     }
-    chart.update()
 }
 
 function setColor(chartName, color) {
-    chart = Chart.getChart(chartName)
-    chart.options.elements.line.borderColor = color
-    chart.options.elements.point.backgroundColor = color
-    chart.update()
+    if (chartName != 'all') {
+        chart = Chart.getChart(chartName)
+        chart.options.elements.line.borderColor = color
+        chart.options.elements.point.backgroundColor = color
+        chart.update()
+    } else {
+        for (let i = 0; i < charts.length; i++) {
+            charts[i].options.elements.line.borderColor = color
+            charts[i].options.elements.point.backgroundColor = color
+            charts[i].update()
+        }
+    }
 }
 
 async function getData() {
-    const response = await fetch('population.json') //fetch('http://' + IP + ":" + port + '/res.json'); //fetch('population.json') //fetch('http://34.148.159.57/res.json')
+    const response = await fetch('test.json') //fetch('http://' + IP + ":" + port + '/res.json'); //fetch('population.json') //fetch('http://34.148.159.57/res.json')
     //response.preventDefault();
     console.log(response);
     const data = await response.json();
@@ -184,17 +199,13 @@ async function getData() {
     length = data.length;
     console.log(length);
 
-    time = data[length - 1].time
-    cpuUsage = data[length - 1].people//cpuUsagePercent
-    // ramUsage = data[length - 1].memory
-    // diskUsage = data[length - 1].disk.space
-    // IOUsage = data[length - 1].disk.io
-    // netUsage = data[length - 1].network
-    // avgUsage = data[length - 1].loadAverage
-
-    if (length > 5) {
-        //removeData(cpuChart)
-    }
+    time = data[length - 1].timestamp
+    cpuUsage = Math.random() * 100 //data[length - 1].cpuUsagePercent
+    ramUsage = Math.random() * 100 //data[length - 1].memory
+    diskUsage = Math.random() * 100 //data[length - 1].disk.space
+    IOUsage = Math.random() * 100 //data[length - 1].disk.io
+    netUsage = Math.random() * 100 //data[length - 1].network
+    avgUsage = Math.random() * 100 //data[length - 1].loadAverage
 
     addData(cpuChart, time, cpuUsage)
     addData(ramChart, time, ramUsage)
@@ -203,8 +214,18 @@ async function getData() {
     addData(netChart, time, netUsage)
     addData(avgChart, time, avgUsage)
 
+    updateCharts()
+
     if (gettingData) {
-        setTimeout(getData, 2000)
+        setTimeout(getData, 1000)
+    }
+}
+
+function updateCharts() {
+    for (let i = 0; i < 1; i++) {
+        while (charts[i].data.labels.length > timeScales[i]) {
+            removeData(charts[i])
+        }
     }
 }
 
@@ -217,9 +238,9 @@ function addData(chart, label, newData) {
 }
 
 function removeData(chart) {
-    chart.data.labels.pop();
+    chart.data.labels.shift();
     chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
+        dataset.data.shift();
     });
     chart.update();
 }

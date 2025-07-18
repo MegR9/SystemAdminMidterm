@@ -50,13 +50,14 @@
                                 <div class="setting-container">
                                     <p class="settings-label" style="float: none;">History</p>
                                     <div class="history-buttons">
-                                        <button onclick="setHistory('cpuUsage', 300)">5m</button>
-                                        <button onclick="setHistory('cpuUsage', 60)">1m</button>
-                                        <button onclick="setHistory('cpuUsage', 30)">30s</button>
+                                        <button onclick="setTimeScale(0, 300)">5m</button>
+                                        <button onclick="setTimeScale(0, 60)">1m</button>
+                                        <button onclick="setTimeScale(0, 30)">30s</button>
                                     </div>
                                 </div>
                                 <div class="setting-container">
-                                    <input id="graphColor1" type="color" class="settings-input" oninput="setColor('cpuUsage', value)">
+                                    <input id="graphColor1" type="color" class="settings-input"
+                                        oninput="setColor('cpuUsage', value)">
                                     <label for="graphColor1" class="settings-label">Graph Color</label>
                                 </div>
                             </div>
@@ -183,9 +184,21 @@
                 <h1 class="time" id="time"></h1>
             </div>
             <div class="panel">
-                <h2 class="box-header">Settings</h2>
+                <h2 class="box-header">Global Settings</h2>
                 <p>Server IP Address</p>
                 <input type="text" id="ip-input" onchange="updateIP(value)">
+                <div class="setting-container">
+                    <p class="settings-label" style="float: none;">History</p>
+                    <div class="history-buttons">
+                        <button onclick="setTimeScale(-1, 300)">5m</button>
+                        <button onclick="setTimeScale(-1, 60)">1m</button>
+                        <button onclick="setTimeScale(-1, 30)">30s</button>
+                    </div>
+                </div>
+                <div class="setting-container">
+                    <input id="graphColorAll" type="color" class="settings-input" oninput="setColor('all', value)">
+                    <label for="graphColorAll" class="settings-label">Graph Color</label>
+                </div>
             </div>
         </div>
     </div>
