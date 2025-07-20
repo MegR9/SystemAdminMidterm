@@ -4,7 +4,7 @@ Description=Agent Service Montoring
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /opt/agent.py
+ExecStart=/usr/bin/node /opt/agent.js #or whatever home directory is you system
 Restart=always
 RestartSec=5
 User=root
