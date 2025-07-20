@@ -7,7 +7,11 @@ After=network.target
 ExecStart=/usr/bin/node /opt/agent.js #or whatever home directory is you system
 Restart=always
 RestartSec=5
-User=root
+User=mpredestin #user
+Group=moderators #group with user
+Environment=NODE_ENV=production
+StandardOutput=append:/var/log/agent.log
+StandardError=append:/var/log/agent-error.log
 
 [Install]
 WantedBy=multi-user.target
