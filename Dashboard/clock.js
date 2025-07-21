@@ -32,16 +32,16 @@ function startTime() {
 
     switch(dayOfWeek)
     {
-        case(1):
+        case(0):
         dayText = "Sunday"
         break;
-        case(2):
+        case(1):
         dayText = "Monday"
         break;
-        case(3):
+        case(2):
         dayText = "Tuesday"
         break;
-        case(4):
+        case(3):
         dayText = "Wednesday"
         break;
         case(4):

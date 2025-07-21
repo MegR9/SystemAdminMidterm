@@ -76,11 +76,28 @@
                         <div class="subpanel-container">
                             <div class="panel">
                                 <h2 class="box-header">Settings</h2>
-                                <input class="checkbox" type="checkbox" id="alertToggle2">
-                                <label class="checkbox-label" for="alertToggle2">Usage Alert</label><br>
-                                <p class="slider-label">Alert at 100% Usage</p>
-                                <input class="options-slider" id="ramUsageAlert" oninput="updateSlider(1)" value="100"
-                                    type="range">
+                                <div class="setting-container">
+                                    <input class="checkbox settings-input" type="checkbox" id="alertToggle1">
+                                    <label class="settings-label" for="alertToggle1">Usage Alert</label><br>
+                                </div>
+                                <div class="setting-container">
+                                    <p class="slider-label">Alert at 100% Usage</p>
+                                    <input class="options-slider" id="ramUsageAlert" oninput="updateSlider(1)"
+                                        value="100" type="range">
+                                </div>
+                                <div class="setting-container">
+                                    <p class="settings-label" style="float: none;">History</p>
+                                    <div class="history-buttons">
+                                        <button onclick="setTimeScale(1, 300)">5m</button>
+                                        <button onclick="setTimeScale(1, 60)">1m</button>
+                                        <button onclick="setTimeScale(1, 30)">30s</button>
+                                    </div>
+                                </div>
+                                <div class="setting-container">
+                                    <input id="graphColor2" type="color" class="settings-input"
+                                        oninput="setColor('ramUsage', value)">
+                                    <label for="graphColor2" class="settings-label">Graph Color</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -97,11 +114,28 @@
                         <div class="subpanel-container">
                             <div class="panel">
                                 <h2 class="box-header">Settings</h2>
-                                <input class="checkbox" type="checkbox" id="alertToggle3">
-                                <label class="checkbox-label" for="alertToggle3">Usage Alert</label><br>
-                                <p class="slider-label">Alert at 100% Usage</p>
-                                <input class="options-slider" id="diskUsageAlert" oninput="updateSlider(2)" value="100"
-                                    type="range">
+                                <div class="setting-container">
+                                    <input class="checkbox settings-input" type="checkbox" id="alertToggle1">
+                                    <label class="settings-label" for="alertToggle1">Usage Alert</label><br>
+                                </div>
+                                <div class="setting-container">
+                                    <p class="slider-label">Alert at 100% Usage</p>
+                                    <input class="options-slider" id="diskUsageAlert" oninput="updateSlider(2)"
+                                        value="100" type="range">
+                                </div>
+                                <div class="setting-container">
+                                    <p class="settings-label" style="float: none;">History</p>
+                                    <div class="history-buttons">
+                                        <button onclick="setTimeScale(2, 300)">5m</button>
+                                        <button onclick="setTimeScale(2, 60)">1m</button>
+                                        <button onclick="setTimeScale(2, 30)">30s</button>
+                                    </div>
+                                </div>
+                                <div class="setting-container">
+                                    <input id="graphColor1" type="color" class="settings-input"
+                                        oninput="setColor('diskUsage', value)">
+                                    <label for="graphColor1" class="settings-label">Graph Color</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -118,11 +152,28 @@
                         <div class="subpanel-container">
                             <div class="panel">
                                 <h2 class="box-header">Settings</h2>
-                                <input class="checkbox" type="checkbox" id="alertToggle4">
-                                <label class="checkbox-label" for="alertToggle4">Usage Alert</label><br>
-                                <p class="slider-label">Alert at 100% Usage</p>
-                                <input class="options-slider" id="diskIOUsageAlert" oninput="updateSlider(3)"
-                                    value="100" type="range">
+                                <div class="setting-container">
+                                    <input class="checkbox settings-input" type="checkbox" id="alertToggle3">
+                                    <label class="settings-label" for="alertToggle3">Usage Alert</label><br>
+                                </div>
+                                <div class="setting-container">
+                                    <p class="slider-label">Alert at 100% Usage</p>
+                                    <input class="options-slider" id="IOUsageAlert" oninput="updateSlider(3)"
+                                        value="100" type="range">
+                                </div>
+                                <div class="setting-container">
+                                    <p class="settings-label" style="float: none;">History</p>
+                                    <div class="history-buttons">
+                                        <button onclick="setTimeScale(3, 300)">5m</button>
+                                        <button onclick="setTimeScale(3, 60)">1m</button>
+                                        <button onclick="setTimeScale(3, 30)">30s</button>
+                                    </div>
+                                </div>
+                                <div class="setting-container">
+                                    <input id="graphColor3" type="color" class="settings-input"
+                                        oninput="setColor('IOUsage', value)">
+                                    <label for="graphColor3" class="settings-label">Graph Color</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -140,11 +191,28 @@
                         <div class="subpanel-container">
                             <div class="panel">
                                 <h2 class="box-header">Settings</h2>
-                                <input class="checkbox" type="checkbox" id="alertToggle5">
-                                <label class="checkbox-label" for="alertToggle5">Usage Alert</label><br>
-                                <p class="slider-label">Alert at 100% Usage</p>
-                                <input class="options-slider" id="netUsageAlert" oninput="updateSlider(4)" value="100"
-                                    type="range">
+                                <div class="setting-container">
+                                    <input class="checkbox settings-input" type="checkbox" id="alertToggle4">
+                                    <label class="settings-label" for="alertToggle4">Usage Alert</label><br>
+                                </div>
+                                <div class="setting-container">
+                                    <p class="slider-label">Alert at 100% Usage</p>
+                                    <input class="options-slider" id="netUsageAlert" oninput="updateSlider(4)"
+                                        value="100" type="range">
+                                </div>
+                                <div class="setting-container">
+                                    <p class="settings-label" style="float: none;">History</p>
+                                    <div class="history-buttons">
+                                        <button onclick="setTimeScale(4, 300)">5m</button>
+                                        <button onclick="setTimeScale(4, 60)">1m</button>
+                                        <button onclick="setTimeScale(4, 30)">30s</button>
+                                    </div>
+                                </div>
+                                <div class="setting-container">
+                                    <input id="graphColor4" type="color" class="settings-input"
+                                        oninput="setColor('netUsage', value)">
+                                    <label for="graphColor4" class="settings-label">Graph Color</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -162,11 +230,28 @@
                         <div class="subpanel-container">
                             <div class="panel">
                                 <h2 class="box-header">Settings</h2>
-                                <input class="checkbox" type="checkbox" id="alertToggle6">
-                                <label class="checkbox-label" for="alertToggle6">Usage Alert</label><br>
-                                <p class="slider-label">Alert at 100% Usage</p>
-                                <input class="options-slider" id="averageUsageAlert" oninput="updateSlider(5)"
-                                    value="100" type="range">
+                                <div class="setting-container">
+                                    <input class="checkbox settings-input" type="checkbox" id="alertToggle5">
+                                    <label class="settings-label" for="alertToggle5">Usage Alert</label><br>
+                                </div>
+                                <div class="setting-container">
+                                    <p class="slider-label">Alert at 100% Usage</p>
+                                    <input class="options-slider" id="cpuUsageAlert" oninput="updateSlider(5)"
+                                        value="100" type="range">
+                                </div>
+                                <div class="setting-container">
+                                    <p class="settings-label" style="float: none;">History</p>
+                                    <div class="history-buttons">
+                                        <button onclick="setTimeScale(5, 300)">5m</button>
+                                        <button onclick="setTimeScale(5, 60)">1m</button>
+                                        <button onclick="setTimeScale(5, 30)">30s</button>
+                                    </div>
+                                </div>
+                                <div class="setting-container">
+                                    <input id="graphColor5" type="color" class="settings-input"
+                                        oninput="setColor('avgUsage', value)">
+                                    <label for="graphColor5" class="settings-label">Graph Color</label>
+                                </div>
                             </div>
                         </div>
                     </div>
