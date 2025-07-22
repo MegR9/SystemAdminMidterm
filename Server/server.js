@@ -2,14 +2,14 @@
 //for the midterm project 
 import express from 'express';
 import * as os from 'os';
-import * as exec from 'child_process';
-import * as fs from 'fs';
-import * as cors from 'cors';
+import { exec } from 'child_process';
+import fs from 'fs';
+import cors from 'cors';
 //const cors = require('cors');
 //import 'module';
 const app = express();
 //const os = require('os');
-//app.use(cors());
+app.use(cors());
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -119,37 +119,41 @@ function getLoadAverage() {
 }
 
 //send data in json
-app.get('/stats', (req, res) => {
-    const cpu = getCPUUsage();
+app.get('/stats', async (req, res) => {
+  try {
+    const cpuUsage = await getCPUUsage();  // await here!
     const memory = getMemoryInfo();
     const load = getLoadAverage();
-    const [diskSpace, diskIO, network] = Promise.all([
-        getDiskSpace(),
-        getDiskIO(),
-        getNetworkStats()
-    ]);
+    const diskSpace = await getDiskSpace();
+    const network = getNetworkStats(); // synchronous function
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.json({
-        timestamp: new Date().toISOString(),
-        cpuUsagePercent: cpu,
-        memory,
-        loadAverage: load,
-        disk: {
-            space: diskSpace,
-            io: diskIO
-        },
-        network
+      timestamp: new Date().toISOString(),
+      cpuUsagePercent: cpuUsage,
+      memory,
+      loadAverage: load,
+      disk: {
+        space: diskSpace,
+        io: null  // no diskIO for now
+      },
+      network
     });
+  } catch (err) {
+    console.error('Error in /stats:', err);
+    res.status(500).json({ error: 'Failed to fetch stats' });
+  }
 });
 
 app.get('/',(req,res)=>{
     //const name = '';
     res.send('Server is running?');
+
 });
 
 
-app.listen(3000, "127.0.0.1",() => {
-    console.log('Server listening on http://localhost:3000');
+app.listen(80, "0.0.0.0",() => {
+    console.log('Server listening on http://0.0.0.0:80');
     //console.log("opened server on", server.address());
 });
 
