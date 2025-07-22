@@ -8,6 +8,7 @@ const sliders = document.getElementsByClassName("options-slider")
 const sliderLabels = document.getElementsByClassName("slider-label")
 const sliderCheckboxes = document.getElementsByClassName("checkbox")
 
+
 // No panel is currently open
 var openPanel = -1
 // Store the initial aspect ratio of each panel
@@ -208,12 +209,14 @@ function setColor(chartName, color) {
 // Get the actual data from the server
 async function getData() {
     // fetch a json file from the server
-    var response = await fetch('test.json') //fetch('http://' + IP + ":" + port + '/res.json'); //fetch('population.json') //fetch('http://34.148.159.57/res.json')
+    //var response = await fetch('test.json') //fetch('http://' + IP + ":" + port + '/res.json'); //fetch('population.json') //fetch('http://34.148.159.57/res.json')
+    var response = await fetch('http://'+ IP + ':80/stats');
+    //console.log('hello?');
     console.log(response);
     // Get data from the file
     var data = await response.json();
-    console.log(data);
-    // Get the length of the data
+    console.log(data.length);
+    // Get the length of the data/
     length = data.length;
     console.log(length);
     // Get statistics from the data
