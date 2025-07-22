@@ -215,18 +215,47 @@ async function getData() {
     console.log(response);
     // Get data from the file
     var data = await response.json();
-    console.log(data.length);
+    console.log(data);
     // Get the length of the data/
     length = data.length;
     console.log(length);
     // Get statistics from the data
-    time = Date //data[length - 1].timestamp
-    cpuUsage = Math.random() * 100 //data[length - 1].cpuUsagePercent
-    ramUsage = Math.random() * 100 //data[length - 1].memory
-    diskUsage = Math.random() * 100 //data[length - 1].disk.space
-    IOUsage = Math.random() * 100 //data[length - 1].disk.io
-    netUsage = Math.random() * 100 //data[length - 1].network
-    avgUsage = Math.random() * 100 //data[length - 1].loadAverage
+    //time = Date //data[length - 1].timestamp
+    time = data.timestamp;
+    //cpuUsage = Math.random() * 100 //data[length - 1].cpuUsagePercent
+    cpuUsage = data.cpuUsagePercent;
+    //ramUsage = Math.random() * 100 //data[length - 1].memory
+    ramUsage = (data.memory.usedMB/data.memory.totalMB)*100;
+
+    //diskUsage = Math.random() * 100 //data[length - 1].disk.space
+    let totalDisk = 0, usedDisk = 0;
+    data.disk.space.forEach(disk => {
+        totalDisk += disk.totalGB;
+        usedDisk += disk.usedGB;
+    });
+    diskUsage = (usedDisk / totalDisk * 100);    
+    //IOUsage = Math.random() * 100 //data[length - 1].disk.io
+    const diskIO = data.disk.io;
+    let totalReads = data.disk.io.readMB;
+    let totalWrites = data.disk.io.writeMB;
+
+    /*for (const device in diskIO) {
+        totalReads += diskIO[device].readsMB;
+        totalWrites += diskIO[device].writesMB;
+    }*/
+
+    IOUsage = totalReads + totalWrites;
+    //netUsage = Math.random() * 100 //data[length - 1].network
+    let netTotal = 0;
+        for (const iface in data.network) {
+            const net = data.network[iface];
+            netTotal += net.receiveBytes + net.transmitBytes;
+        }
+    netUsage = (netTotal / (1024 * 1024));
+
+    //avgUsage = Math.random() * 100 //data[length - 1].loadAverage
+    avgUsage = (data.loadAverage['1min'] * 20);
+
     // Add the data to each chart
     addData(cpuChart, time, cpuUsage)
     addData(ramChart, time, ramUsage)
